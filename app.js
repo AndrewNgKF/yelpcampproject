@@ -22,13 +22,13 @@ var flash = require("connect-flash");
 
 
 // process.env.DATABASEURL
-// mongodb://andrew:jiokas123@ds159988.mlab.com:59988/yelpcamp
+
 
 //create and connect to mongodb and make yelp_camp database
-mongoose.connect(process.env.DATABASEURL);
 
-//for local database
-// mongoose.connect("mongodb://localhost/yelp_camp");
+var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
+
+mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', "ejs");
