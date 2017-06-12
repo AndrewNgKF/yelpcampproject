@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-//SCHEMA setup
+
 var campgroundSchema = new mongoose.Schema({
    name: String,
    price: String,
@@ -16,7 +16,7 @@ var campgroundSchema = new mongoose.Schema({
    comments: [
       {
          type: mongoose.Schema.Types.ObjectId,
-         //ref is name of the model
+         
          ref: "Comment"
       }
    ]

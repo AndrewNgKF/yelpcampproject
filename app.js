@@ -25,7 +25,6 @@ var flash = require("connect-flash");
 
 
 //create and connect to mongodb and make yelp_camp database
-
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
 
 mongoose.connect(url);
@@ -36,32 +35,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-//Seed the DB with dummy data
-// seedDB();
-
-
-// Campground.create({
-//     name: 'whatever', 
-//     image: 'https://www.campamerica.co.uk/images/uploads/images/Private-Camp---Camp-Westmont-1400-x-610.png',
-//     description: "this is a huge granite hill"
-    
-// }, function(err, campground) {
-//     if(err) {
-//         console.log(err);
-//     } else {
-//         console.log('Newly created campground: ', campground);
-//     }
-// });
-
-//CAMPGROUNDS ARRAY
-// var campgrounds = [
-//     {name: 'fish creek', image: 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Wilderness_Adventure_Camps.jpg'},
-//     {name: 'whatever', image: 'https://www.campamerica.co.uk/images/uploads/images/Private-Camp---Camp-Westmont-1400-x-610.png'},
-//     {name: 'Whatever name', image: 'http://www.topeducationdegrees.org/wp-content/uploads/2014/05/49.-River-Way-Ranch-Camp-%E2%80%93-Sanger-California.jpg'},
-//     {name: 'fish creek', image: 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Wilderness_Adventure_Camps.jpg'},
-//     {name: 'whatever', image: 'https://www.campamerica.co.uk/images/uploads/images/Private-Camp---Camp-Westmont-1400-x-610.png'},
-//     {name: 'Whatever name', image: 'http://www.topeducationdegrees.org/wp-content/uploads/2014/05/49.-River-Way-Ranch-Camp-%E2%80%93-Sanger-California.jpg'}
-// ];
 
 //PASSPORT CONFIG
 app.use(require('express-session')({
@@ -78,17 +51,19 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-//this is to pass on currentUser to other parts, app.use will called on every single route
+
 app.use(function(req, res, next) {
-    //res.locals is whatever is inside the template
+    
     res.locals.currentUser = req.user;
-    //declares the message variable which is shown in the header.ejs file. 
+    
     res.locals.error = req.flash('error');
     res.locals.success = req.flash('success');
+    
     //next() is important to move on to next middleware.
     next();
 });
-//These 3 lines have to be under the func because they need currentUser to work. 
+
+ 
 app.use(indexRoutes);
 app.use(commentRoutes);
 app.use(campgroundRoutes);

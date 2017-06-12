@@ -5,7 +5,7 @@ var commentSchema = mongoose.Schema({
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            //ref refers to the model in which we are linking to
+            
             ref: "User"
         },
         username: String
